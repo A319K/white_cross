@@ -1,10 +1,10 @@
-import { useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { CalendarDays } from 'lucide-react';
-import EventCard from '../components/EventCard';
+import { Calendar, MapPin } from 'lucide-react';
+import EventSlideshow from '../components/EventSlideshow';
 import EventCalendar from '../components/EventCalendar';
 import { events } from '../data/events';
+import { format, parseISO } from 'date-fns';
 
 const PageWrapper = ({ children }) => (
   <motion.div
@@ -33,16 +33,20 @@ function FadeSection({ children, delay = 0, className = '' }) {
   );
 }
 
-const tabs = ['All Events', 'Upcoming Events'];
+function formatEventDate(date, endDate) {
+  try {
+    const start = format(parseISO(date), 'MMM d, yyyy');
+    if (endDate) {
+      const end = format(parseISO(endDate), 'MMM d, yyyy');
+      return `${start} – ${end}`;
+    }
+    return start;
+  } catch {
+    return date;
+  }
+}
 
 export default function Events() {
-  const [activeTab, setActiveTab] = useState('All Events');
-
-  const filtered =
-    activeTab === 'All Events'
-      ? events
-      : events.filter((e) => e.category === 'upcoming');
-
   return (
     <PageWrapper>
       {/* ── HERO ─────────────────────────────────────────────────────────────── */}
@@ -53,7 +57,7 @@ export default function Events() {
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            backgroundImage: 'radial-gradient(circle at 30% 60%, rgba(158,63,253,0.15) 0%, transparent 55%)',
+            backgroundImage: 'radial-gradient(circle at 30% 60%, rgba(14,165,233,0.15) 0%, transparent 55%)',
           }}
         />
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -62,7 +66,7 @@ export default function Events() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             className="inline-block text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-6"
-            style={{ background: 'rgba(158,63,253,0.2)', color: '#DDBBFF', fontFamily: 'Inter, sans-serif' }}
+            style={{ background: 'rgba(14,165,233,0.2)', color: '#BAE6FD', fontFamily: 'Outfit, sans-serif' }}
           >
             Community
           </motion.span>
@@ -71,7 +75,7 @@ export default function Events() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.7 }}
             className="text-5xl lg:text-6xl font-extrabold mb-5"
-            style={{ fontFamily: 'Poppins, sans-serif' }}
+            style={{ fontFamily: 'Fraunces, serif' }}
           >
             Our Events
           </motion.h1>
@@ -80,77 +84,105 @@ export default function Events() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35 }}
             className="text-lg opacity-75 max-w-2xl mx-auto"
-            style={{ fontFamily: 'Inter, sans-serif' }}
+            style={{ fontFamily: 'Outfit, sans-serif' }}
           >
             Bringing awareness to communities across New Jersey — one event at a time.
           </motion.p>
         </div>
       </section>
 
-      {/* ── TAB FILTER + CARDS ────────────────────────────────────────────────── */}
+      {/* ── EVENT SECTIONS WITH SLIDESHOWS ───────────────────────────────────── */}
       <section className="py-16 lg:py-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Tabs */}
-          <FadeSection className="flex gap-2 mb-10 p-1 rounded-xl w-fit" style={{ background: '#F5F3FF' }}>
-            {tabs.map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className="px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200"
-                style={{
-                  background: activeTab === tab ? '#9E3FFD' : 'transparent',
-                  color: activeTab === tab ? 'white' : '#6b7280',
-                  fontFamily: 'Inter, sans-serif',
-                  border: 'none',
-                  cursor: 'pointer',
-                  boxShadow: activeTab === tab ? '0 4px 14px rgba(158,63,253,0.3)' : 'none',
-                }}
-              >
-                {tab}
-              </button>
-            ))}
-          </FadeSection>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
+          {events.map((event, idx) => (
+            <FadeSection key={event.id} delay={idx * 0.1}>
+              <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+                {/* Slideshow */}
+                <div className={idx % 2 === 1 ? 'lg:order-2' : ''}>
+                  <EventSlideshow
+                    images={event.images || (event.image ? [event.image] : [])}
+                    title={event.title}
+                  />
+                </div>
 
-          {/* Cards grid */}
-          {filtered.length === 0 ? (
-            <div
-              className="py-16 text-center rounded-2xl"
-              style={{ background: '#F5F3FF', border: '1px dashed rgba(158,63,253,0.2)' }}
-            >
-              <CalendarDays size={40} className="mx-auto mb-3 opacity-30" style={{ color: '#9E3FFD' }} />
-              <p className="text-gray-500 font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>
-                No upcoming events scheduled yet. Check back soon!
-              </p>
-            </div>
-          ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filtered.map((event, i) => (
-                <EventCard key={event.id} event={event} delay={i * 0.08} />
-              ))}
-            </div>
-          )}
+                {/* Details */}
+                <div className={`flex flex-col justify-center ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
+                  <span
+                    className="inline-flex items-center self-start text-xs font-semibold px-3 py-1.5 rounded-full mb-4"
+                    style={{
+                      background: event.category === 'past' ? 'rgba(107, 114, 128, 0.1)' : 'rgba(14, 165, 233, 0.1)',
+                      color: event.category === 'past' ? '#6b7280' : '#0EA5E9',
+                      fontFamily: 'Outfit, sans-serif',
+                    }}
+                  >
+                    {event.category === 'past' ? 'Past Event' : 'Upcoming'}
+                  </span>
+
+                  <h2
+                    className="text-3xl lg:text-4xl font-bold mb-4"
+                    style={{ fontFamily: 'Fraunces, serif', color: '#16163F' }}
+                  >
+                    {event.title}
+                  </h2>
+
+                  <p
+                    className="text-gray-600 leading-relaxed mb-6"
+                    style={{ fontFamily: 'Outfit, sans-serif' }}
+                  >
+                    {event.description}
+                  </p>
+
+                  <div className="space-y-2">
+                    <div
+                      className="flex items-center gap-2.5 text-sm"
+                      style={{ color: '#6b7280', fontFamily: 'Outfit, sans-serif' }}
+                    >
+                      <Calendar size={15} style={{ color: '#0EA5E9' }} />
+                      {formatEventDate(event.date, event.endDate)}
+                    </div>
+                    <div
+                      className="flex items-center gap-2.5 text-sm"
+                      style={{ color: '#6b7280', fontFamily: 'Outfit, sans-serif' }}
+                    >
+                      <MapPin size={15} style={{ color: '#0EA5E9' }} />
+                      {event.location}
+                    </div>
+                  </div>
+
+                  {event.images && event.images.length > 1 && (
+                    <p
+                      className="mt-4 text-xs"
+                      style={{ color: '#9ca3af', fontFamily: 'Outfit, sans-serif' }}
+                    >
+                      {event.images.length} photos — hover to navigate
+                    </p>
+                  )}
+                </div>
+              </div>
+            </FadeSection>
+          ))}
         </div>
       </section>
 
       {/* ── CALENDAR ─────────────────────────────────────────────────────────── */}
-      <section className="py-16 lg:py-24" style={{ background: '#F5F3FF' }}>
+      <section className="py-16 lg:py-24" style={{ background: '#F0F9FF' }}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeSection className="text-center mb-10">
             <span
               className="text-xs font-bold uppercase tracking-widest"
-              style={{ color: '#9E3FFD', fontFamily: 'Inter, sans-serif' }}
+              style={{ color: '#0EA5E9', fontFamily: 'Outfit, sans-serif' }}
             >
               Schedule
             </span>
             <h2
               className="text-4xl font-bold mt-2"
-              style={{ fontFamily: 'Poppins, sans-serif', color: '#16163F' }}
+              style={{ fontFamily: 'Fraunces, serif', color: '#16163F' }}
             >
-              Upcoming Events Calendar
+              Events Calendar
             </h2>
             <p
               className="text-gray-500 text-sm mt-2"
-              style={{ fontFamily: 'Inter, sans-serif' }}
+              style={{ fontFamily: 'Outfit, sans-serif' }}
             >
               Highlighted dates have events — click to see details.
             </p>

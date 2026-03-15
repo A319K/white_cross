@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Pill, Clock, MapPin, Info, CalendarDays, User,
   Search, CheckCircle, XCircle, Loader2, Navigation,
-  ChevronRight, ExternalLink, AlertTriangle
+  ChevronRight, ExternalLink, AlertTriangle, AlertCircle
 } from 'lucide-react';
 import RxDisposeModal from './RxDisposeModal';
 import { allMedications, checkFlushable } from '../data/medications';
@@ -23,7 +23,7 @@ function ModalContent({ id }) {
   switch (id) {
     case 'purpose':
       return (
-        <div className="space-y-4" style={{ fontFamily: 'Inter, sans-serif' }}>
+        <div className="space-y-4" style={{ fontFamily: 'Outfit, sans-serif' }}>
           <p className="text-gray-600 leading-relaxed">
             RxDispose is a user-friendly tool designed to promote safe and environmentally
             responsible medication disposal. It has two core functions:
@@ -53,7 +53,7 @@ function ModalContent({ id }) {
 
     case 'when':
       return (
-        <div className="space-y-4" style={{ fontFamily: 'Inter, sans-serif' }}>
+        <div className="space-y-4" style={{ fontFamily: 'Outfit, sans-serif' }}>
           <p className="text-gray-600 text-sm leading-relaxed">
             Knowing when to dispose of medications is just as important as knowing how.
           </p>
@@ -84,7 +84,7 @@ function ModalContent({ id }) {
 
     case 'where':
       return (
-        <div className="space-y-5" style={{ fontFamily: 'Inter, sans-serif' }}>
+        <div className="space-y-5" style={{ fontFamily: 'Outfit, sans-serif' }}>
           {[
             {
               n: '1', emoji: '🏪', t: 'Take-Back Programs (Best Option)',
@@ -114,7 +114,7 @@ function ModalContent({ id }) {
 
     case 'about':
       return (
-        <div className="space-y-4" style={{ fontFamily: 'Inter, sans-serif' }}>
+        <div className="space-y-4" style={{ fontFamily: 'Outfit, sans-serif' }}>
           <p className="text-gray-600 leading-relaxed text-sm">
             RxDispose was built as part of the White Cross mission to prevent drug misuse through
             education and accessible tools. Every feature is designed to make safe disposal as
@@ -142,7 +142,7 @@ function ModalContent({ id }) {
 
     case 'takeback':
       return (
-        <div className="space-y-4" style={{ fontFamily: 'Inter, sans-serif' }}>
+        <div className="space-y-4" style={{ fontFamily: 'Outfit, sans-serif' }}>
           <p className="text-gray-600 text-sm leading-relaxed">
             The DEA sponsors National Prescription Drug Take Back Day twice a year — typically in
             April and October — at thousands of collection sites nationwide. It's free, anonymous,
@@ -177,16 +177,16 @@ function ModalContent({ id }) {
 
     case 'creator':
       return (
-        <div className="space-y-4" style={{ fontFamily: 'Inter, sans-serif' }}>
+        <div className="space-y-4" style={{ fontFamily: 'Outfit, sans-serif' }}>
           <div className="flex items-center gap-4">
             <div
               className="w-14 h-14 rounded-full flex items-center justify-center text-white text-lg font-bold flex-shrink-0"
-              style={{ background: 'linear-gradient(135deg, #1B5E20, #2E7D32)', fontFamily: 'Poppins, sans-serif' }}
+              style={{ background: 'linear-gradient(135deg, #1B5E20, #2E7D32)', fontFamily: 'Fraunces, serif' }}
             >
               RK
             </div>
             <div>
-              <p className="font-bold" style={{ fontFamily: 'Poppins, sans-serif', color: '#16163F' }}>
+              <p className="font-bold" style={{ fontFamily: 'Fraunces, serif', color: '#16163F' }}>
                 Ryan Kwon
               </p>
               <span
@@ -214,29 +214,107 @@ function ModalContent({ id }) {
   }
 }
 
-// ── Mock disposal locations ────────────────────────────────────────────────────
-// FUTURE: Replace mock results with real DEA Disposal Locator API call.
-// API endpoint: https://apps2.deadiversion.usdoj.gov/pubdispsearch
-// Integrate with actual geolocation data when API access is obtained.
-const mockLocations = [
-  { name: 'CVS Pharmacy', distance: '0.4 mi', address: '123 Main St, Hackensack, NJ', mapsQuery: 'CVS+Pharmacy+Hackensack+NJ' },
-  { name: 'Walgreens', distance: '1.1 mi', address: '456 Oak Ave, Hackensack, NJ', mapsQuery: 'Walgreens+Hackensack+NJ' },
-  { name: 'Local Police Department', distance: '1.8 mi', address: '789 Elm Blvd, Hackensack, NJ', mapsQuery: 'Hackensack+Police+Department+NJ' },
-  { name: 'Rite Aid', distance: '2.3 mi', address: '321 Pine Rd, Teaneck, NJ', mapsQuery: 'Rite+Aid+Teaneck+NJ' },
-  { name: 'Hospital Pharmacy', distance: '3.0 mi', address: '654 Maple Dr, Hackensack, NJ', mapsQuery: 'Hackensack+University+Medical+Center+pharmacy' },
-];
+// ── Haversine distance formula (returns miles) ────────────────────────────────
+function distanceMiles(lat1, lon1, lat2, lon2) {
+  const R = 3958.8;
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLon = ((lon2 - lon1) * Math.PI) / 180;
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos((lat1 * Math.PI) / 180) *
+      Math.cos((lat2 * Math.PI) / 180) *
+      Math.sin(dLon / 2) ** 2;
+  return R * 2 * Math.asin(Math.sqrt(a));
+}
+
+// ── Convert zip code → lat/lng via free zippopotam.us API ────────────────────
+async function getCoordinatesFromZip(zip) {
+  const res = await fetch(`https://api.zippopotam.us/us/${zip.trim()}`);
+  if (!res.ok) throw new Error('Invalid zip code. Please try again.');
+  const data = await res.json();
+  return {
+    lat: parseFloat(data.places[0].latitude),
+    lon: parseFloat(data.places[0].longitude),
+  };
+}
+
+// ── Query OpenStreetMap Overpass API for nearby pharmacies & police stations ──
+// FUTURE: Replace or supplement with the official DEA Disposal Locator API
+// when access is obtained: https://apps2.deadiversion.usdoj.gov/pubdispsearch
+// Current implementation uses OpenStreetMap (Overpass API) — free, no key needed.
+async function findNearbyDisposalSites(lat, lon) {
+  const radiusMeters = 8000; // ~5 mile radius
+  const query = `
+[out:json][timeout:25];
+(
+  node["amenity"="pharmacy"](around:${radiusMeters},${lat},${lon});
+  node["amenity"="police"](around:${radiusMeters},${lat},${lon});
+);
+out 12;`.trim();
+
+  const res = await fetch('https://overpass-api.de/api/interpreter', {
+    method: 'POST',
+    body: query,
+  });
+
+  if (!res.ok) throw new Error('Could not reach location service. Please try again.');
+
+  const data = await res.json();
+
+  const results = data.elements
+    .filter((el) => el.tags && el.tags.name)
+    .map((el) => {
+      const tags = el.tags;
+      const dist = distanceMiles(lat, lon, el.lat, el.lon);
+
+      // Build address from OSM tags when available
+      const street =
+        tags['addr:housenumber'] && tags['addr:street']
+          ? `${tags['addr:housenumber']} ${tags['addr:street']}`
+          : tags['addr:street'] || null;
+      const city = tags['addr:city'] || null;
+      const state = tags['addr:state'] || null;
+      const address = [street, city, state].filter(Boolean).join(', ') || null;
+
+      const mapsQuery = encodeURIComponent(
+        [tags.name, street, city, state].filter(Boolean).join(', ')
+      );
+
+      return {
+        name: tags.name,
+        type: tags.amenity, // 'pharmacy' or 'police'
+        distance: dist,
+        address,
+        lat: el.lat,
+        lon: el.lon,
+        mapsQuery,
+      };
+    })
+    .sort((a, b) => a.distance - b.distance)
+    .slice(0, 5);
+
+  return results;
+}
 
 export default function RxDisposeApp() {
   const [activeModal, setActiveModal] = useState(null);
+
+  // Flushability checker state
   const [medInput, setMedInput] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [flushResult, setFlushResult] = useState(null);
+
+  // Disposal locator state
   const [zipInput, setZipInput] = useState('');
   const [locLoading, setLocLoading] = useState(false);
   const [locations, setLocations] = useState(null);
+  const [locError, setLocError] = useState(null);
+  const [userCoords, setUserCoords] = useState(null);
+
   const checkerRef = useRef(null);
   const locatorRef = useRef(null);
 
+  // ── Flushability checker handlers ────────────────────────────────────────────
   const handleMedInput = (val) => {
     setMedInput(val);
     setFlushResult(null);
@@ -256,37 +334,65 @@ export default function RxDisposeApp() {
     setSuggestions([]);
   };
 
-  const handleFindLocations = () => {
-    if (!zipInput.trim() && !locLoading) return;
+  // ── Disposal locator handlers ─────────────────────────────────────────────────
+  const runSearch = async (lat, lon) => {
     setLocLoading(true);
     setLocations(null);
-    setTimeout(() => {
+    setLocError(null);
+    setUserCoords({ lat, lon });
+
+    try {
+      const results = await findNearbyDisposalSites(lat, lon);
+      if (results.length === 0) {
+        setLocError('No pharmacies or disposal sites found within 5 miles. Try the DEA Take Back Day locator for more options.');
+      } else {
+        setLocations(results);
+      }
+    } catch (err) {
+      setLocError(err.message || 'Something went wrong. Please try again.');
+    } finally {
       setLocLoading(false);
-      setLocations(mockLocations);
-    }, 1200);
+    }
+  };
+
+  const handleFindLocations = async () => {
+    if (!zipInput.trim() || locLoading) return;
+    try {
+      const { lat, lon } = await getCoordinatesFromZip(zipInput);
+      await runSearch(lat, lon);
+    } catch (err) {
+      setLocError(err.message || 'Invalid zip code.');
+      setLocLoading(false);
+    }
   };
 
   const handleGeoLocate = () => {
     if (!navigator.geolocation) {
-      alert('Geolocation is not supported by your browser.');
+      setLocError('Geolocation is not supported by your browser. Please enter a zip code.');
       return;
     }
     setLocLoading(true);
     setLocations(null);
+    setLocError(null);
     navigator.geolocation.getCurrentPosition(
-      () => {
+      (pos) => {
         setZipInput('Using your location');
-        setTimeout(() => {
-          setLocLoading(false);
-          setLocations(mockLocations);
-        }, 1200);
+        runSearch(pos.coords.latitude, pos.coords.longitude);
       },
       () => {
         setLocLoading(false);
-        alert('Unable to get your location. Please enter a zip code.');
+        setLocError('Unable to get your location. Please enter a zip code instead.');
       }
     );
   };
+
+  const typeLabel = (type) =>
+    type === 'police' ? 'Police Dept.' : 'Pharmacy';
+
+  const typeBadgeStyle = (type) =>
+    type === 'police'
+      ? { background: '#EEF2FF', color: '#3730A3' }
+      : { background: '#E8F5E9', color: '#1B5E20' };
 
   return (
     <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
@@ -298,7 +404,7 @@ export default function RxDisposeApp() {
         >
           <p
             className="text-xs font-bold uppercase tracking-widest px-2 mb-3"
-            style={{ color: '#1B5E20', fontFamily: 'Inter, sans-serif' }}
+            style={{ color: '#1B5E20', fontFamily: 'Outfit, sans-serif' }}
           >
             Learn More
           </p>
@@ -312,7 +418,7 @@ export default function RxDisposeApp() {
                 color: 'white',
                 border: 'none',
                 cursor: 'pointer',
-                fontFamily: 'Inter, sans-serif',
+                fontFamily: 'Outfit, sans-serif',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = '#2E7D32';
@@ -342,11 +448,11 @@ export default function RxDisposeApp() {
         >
           <h3
             className="text-lg font-bold mb-1"
-            style={{ fontFamily: 'Poppins, sans-serif', color: '#16163F' }}
+            style={{ fontFamily: 'Fraunces, serif', color: '#16163F' }}
           >
             Can I flush this medication?
           </h3>
-          <p className="text-sm text-gray-500 mb-5" style={{ fontFamily: 'Inter, sans-serif' }}>
+          <p className="text-sm text-gray-500 mb-5" style={{ fontFamily: 'Outfit, sans-serif' }}>
             Check if your medication is on the FDA Flush List.
           </p>
 
@@ -360,7 +466,7 @@ export default function RxDisposeApp() {
               className="w-full px-4 py-3 pr-12 rounded-xl border text-sm outline-none transition-colors"
               style={{
                 borderColor: 'rgba(27, 94, 32, 0.2)',
-                fontFamily: 'Inter, sans-serif',
+                fontFamily: 'Outfit, sans-serif',
                 color: '#16163F',
               }}
               onFocus={(e) => { e.target.style.borderColor = '#1B5E20'; }}
@@ -382,7 +488,7 @@ export default function RxDisposeApp() {
                     <li key={s}>
                       <button
                         className="w-full text-left px-4 py-2.5 text-sm transition-colors hover:bg-green-50"
-                        style={{ fontFamily: 'Inter, sans-serif', color: '#16163F', background: 'none', border: 'none', cursor: 'pointer' }}
+                        style={{ fontFamily: 'Outfit, sans-serif', color: '#16163F', background: 'none', border: 'none', cursor: 'pointer' }}
                         onClick={() => { setMedInput(s); setSuggestions([]); }}
                       >
                         {s}
@@ -397,7 +503,7 @@ export default function RxDisposeApp() {
           <button
             onClick={handleCheck}
             className="w-full py-3 rounded-xl font-semibold text-sm text-white transition-all hover:opacity-90 active:scale-[0.98]"
-            style={{ background: '#1B5E20', fontFamily: 'Inter, sans-serif' }}
+            style={{ background: '#1B5E20', fontFamily: 'Outfit, sans-serif' }}
           >
             Check Medication
           </button>
@@ -422,7 +528,7 @@ export default function RxDisposeApp() {
                 ) : (
                   <AlertTriangle size={20} className="flex-shrink-0 mt-0.5" style={{ color: '#f59e0b' }} />
                 )}
-                <div style={{ fontFamily: 'Inter, sans-serif' }}>
+                <div style={{ fontFamily: 'Outfit, sans-serif' }}>
                   <p className="font-semibold text-sm mb-0.5" style={{ color: flushResult === 'flush' ? '#1B5E20' : flushResult === 'no-flush' ? '#dc2626' : '#92400e' }}>
                     {flushResult === 'flush' ? `${medInput} IS on the FDA Flush List` :
                      flushResult === 'no-flush' ? `${medInput} is NOT on the FDA Flush List` :
@@ -450,30 +556,34 @@ export default function RxDisposeApp() {
         >
           <h3
             className="text-lg font-bold mb-1"
-            style={{ fontFamily: 'Poppins, sans-serif', color: '#16163F' }}
+            style={{ fontFamily: 'Fraunces, serif', color: '#16163F' }}
           >
             Find the nearest disposal site
           </h3>
-          <p className="text-sm text-gray-500 mb-5" style={{ fontFamily: 'Inter, sans-serif' }}>
-            Enter your zip code or use your current location.
+          <p className="text-sm text-gray-500 mb-5" style={{ fontFamily: 'Outfit, sans-serif' }}>
+            Search for real pharmacies and police drop-off sites near you.
           </p>
 
           <div className="flex gap-2 mb-4">
             <input
               type="text"
               value={zipInput}
-              onChange={(e) => setZipInput(e.target.value)}
+              onChange={(e) => {
+                setZipInput(e.target.value);
+                setLocError(null);
+              }}
               onKeyDown={(e) => e.key === 'Enter' && handleFindLocations()}
               placeholder="Enter zip code…"
               className="flex-1 px-4 py-3 rounded-xl border text-sm outline-none transition-colors"
-              style={{ borderColor: 'rgba(27, 94, 32, 0.2)', fontFamily: 'Inter, sans-serif', color: '#16163F' }}
+              style={{ borderColor: locError ? 'rgba(239,68,68,0.4)' : 'rgba(27, 94, 32, 0.2)', fontFamily: 'Outfit, sans-serif', color: '#16163F' }}
               onFocus={(e) => { e.target.style.borderColor = '#1B5E20'; }}
-              onBlur={(e) => { e.target.style.borderColor = 'rgba(27, 94, 32, 0.2)'; }}
+              onBlur={(e) => { e.target.style.borderColor = locError ? 'rgba(239,68,68,0.4)' : 'rgba(27, 94, 32, 0.2)'; }}
             />
             <button
               onClick={handleGeoLocate}
-              className="px-4 py-3 rounded-xl border font-medium text-sm flex items-center gap-2 transition-all hover:bg-green-50"
-              style={{ borderColor: 'rgba(27, 94, 32, 0.2)', color: '#1B5E20', background: 'white', fontFamily: 'Inter, sans-serif', cursor: 'pointer' }}
+              disabled={locLoading}
+              className="px-4 py-3 rounded-xl border font-medium text-sm flex items-center gap-2 transition-all hover:bg-green-50 disabled:opacity-50"
+              style={{ borderColor: 'rgba(27, 94, 32, 0.2)', color: '#1B5E20', background: 'white', fontFamily: 'Outfit, sans-serif', cursor: locLoading ? 'not-allowed' : 'pointer' }}
               title="Use my location"
             >
               <Navigation size={15} />
@@ -483,24 +593,54 @@ export default function RxDisposeApp() {
 
           <button
             onClick={handleFindLocations}
-            disabled={locLoading}
-            className="w-full py-3 rounded-xl font-semibold text-sm text-white transition-all hover:opacity-90 active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-70"
-            style={{ background: '#1B5E20', fontFamily: 'Inter, sans-serif', cursor: locLoading ? 'not-allowed' : 'pointer' }}
+            disabled={locLoading || !zipInput.trim()}
+            className="w-full py-3 rounded-xl font-semibold text-sm text-white transition-all hover:opacity-90 active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-60"
+            style={{ background: '#1B5E20', fontFamily: 'Outfit, sans-serif', cursor: locLoading || !zipInput.trim() ? 'not-allowed' : 'pointer' }}
           >
-            {locLoading ? <><Loader2 size={16} className="animate-spin" /> Searching…</> : 'Find Locations'}
+            {locLoading ? <><Loader2 size={16} className="animate-spin" /> Searching nearby sites…</> : 'Find Locations'}
           </button>
+
+          {/* Error state */}
+          <AnimatePresence>
+            {locError && (
+              <motion.div
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                className="mt-4 p-4 rounded-xl flex gap-3 items-start"
+                style={{ background: '#FEF2F2', border: '1px solid rgba(239,68,68,0.2)' }}
+              >
+                <AlertCircle size={18} className="flex-shrink-0 mt-0.5" style={{ color: '#ef4444' }} />
+                <div style={{ fontFamily: 'Outfit, sans-serif' }}>
+                  <p className="text-sm text-red-700">{locError}</p>
+                  <a
+                    href="https://apps2.deadiversion.usdoj.gov/pubdispsearch"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-semibold mt-1 inline-flex items-center gap-1 hover:underline"
+                    style={{ color: '#1B5E20' }}
+                  >
+                    Search on the DEA site instead <ExternalLink size={11} />
+                  </a>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* Location results */}
           <AnimatePresence>
-            {locations && (
+            {locations && locations.length > 0 && (
               <motion.div
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="mt-5 space-y-3"
               >
+                <p className="text-xs text-gray-400 mb-2" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                  Showing {locations.length} nearby pharmacies & drop-off sites · Powered by OpenStreetMap
+                </p>
                 {locations.map((loc, i) => (
                   <motion.div
-                    key={loc.name}
+                    key={`${loc.name}-${i}`}
                     initial={{ opacity: 0, x: -8 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.07 }}
@@ -514,32 +654,60 @@ export default function RxDisposeApp() {
                       <MapPin size={14} style={{ color: '#1B5E20' }} />
                     </span>
                     <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-sm" style={{ fontFamily: 'Poppins, sans-serif', color: '#16163F' }}>
-                        {loc.name}
-                      </p>
-                      <p className="text-xs text-gray-500 truncate" style={{ fontFamily: 'Inter, sans-serif' }}>
-                        {loc.address}
-                      </p>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <p className="font-semibold text-sm" style={{ fontFamily: 'Fraunces, serif', color: '#16163F' }}>
+                          {loc.name}
+                        </p>
+                        <span
+                          className="text-xs font-semibold px-2 py-0.5 rounded-full"
+                          style={typeBadgeStyle(loc.type)}
+                        >
+                          {typeLabel(loc.type)}
+                        </span>
+                      </div>
+                      {loc.address ? (
+                        <p className="text-xs text-gray-500 truncate mt-0.5" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                          {loc.address}
+                        </p>
+                      ) : (
+                        <p className="text-xs text-gray-400 italic mt-0.5" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                          Address not in map data
+                        </p>
+                      )}
                     </div>
                     <div className="flex items-center gap-2 flex-shrink-0">
                       <span
                         className="text-xs font-bold px-2 py-1 rounded-full"
-                        style={{ background: '#E8F5E9', color: '#1B5E20', fontFamily: 'Inter, sans-serif' }}
+                        style={{ background: '#E8F5E9', color: '#1B5E20', fontFamily: 'Outfit, sans-serif' }}
                       >
-                        {loc.distance}
+                        {loc.distance.toFixed(1)} mi
                       </span>
                       <a
                         href={`https://maps.google.com/?q=${loc.mapsQuery}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-xs font-medium px-3 py-1.5 rounded-lg transition-all hover:opacity-80"
-                        style={{ background: '#1B5E20', color: 'white', fontFamily: 'Inter, sans-serif' }}
+                        style={{ background: '#1B5E20', color: 'white', fontFamily: 'Outfit, sans-serif' }}
                       >
                         Directions
                       </a>
                     </div>
                   </motion.div>
                 ))}
+
+                {/* DEA fallback link */}
+                <p className="text-xs text-gray-400 pt-1 text-center" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                  For the official DEA-registered list, visit{' '}
+                  <a
+                    href="https://apps2.deadiversion.usdoj.gov/pubdispsearch"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold hover:underline"
+                    style={{ color: '#1B5E20' }}
+                  >
+                    DEA Disposal Locator ↗
+                  </a>
+                </p>
               </motion.div>
             )}
           </AnimatePresence>

@@ -32,17 +32,17 @@ function AnimatedRoutes() {
             <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
               <h1
                 className="text-6xl font-extrabold mb-4"
-                style={{ fontFamily: 'Poppins, sans-serif', color: '#16163F' }}
+                style={{ fontFamily: 'Fraunces, serif', color: '#16163F' }}
               >
                 404
               </h1>
-              <p className="text-gray-500 mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
+              <p className="text-gray-500 mb-6" style={{ fontFamily: 'Outfit, sans-serif' }}>
                 Page not found.
               </p>
               <a
                 href="/"
                 className="px-6 py-3 rounded-full font-semibold text-white text-sm"
-                style={{ background: 'linear-gradient(135deg, #9E3FFD, #6A0DAD)' }}
+                style={{ background: '#16163F' }}
               >
                 Go Home
               </a>

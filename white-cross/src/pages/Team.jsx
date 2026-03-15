@@ -41,7 +41,7 @@ export default function Team() {
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            backgroundImage: 'radial-gradient(circle at 60% 40%, rgba(158,63,253,0.15) 0%, transparent 55%)',
+            backgroundImage: 'radial-gradient(circle at 60% 40%, rgba(14,165,233,0.15) 0%, transparent 55%)',
           }}
         />
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -50,7 +50,7 @@ export default function Team() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             className="inline-block text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-6"
-            style={{ background: 'rgba(158,63,253,0.2)', color: '#DDBBFF', fontFamily: 'Inter, sans-serif' }}
+            style={{ background: 'rgba(14,165,233,0.2)', color: '#BAE6FD', fontFamily: 'Outfit, sans-serif' }}
           >
             Our People
           </motion.span>
@@ -59,7 +59,7 @@ export default function Team() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.7 }}
             className="text-5xl lg:text-6xl font-extrabold mb-5"
-            style={{ fontFamily: 'Poppins, sans-serif' }}
+            style={{ fontFamily: 'Fraunces, serif' }}
           >
             Meet the Team
           </motion.h1>
@@ -68,7 +68,7 @@ export default function Team() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35 }}
             className="text-lg opacity-75 max-w-2xl mx-auto"
-            style={{ fontFamily: 'Inter, sans-serif' }}
+            style={{ fontFamily: 'Outfit, sans-serif' }}
           >
             Dedicated individuals united by a mission to create lasting change.
           </motion.p>
@@ -85,14 +85,14 @@ export default function Team() {
                   <span
                     className="text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full"
                     style={{
-                      background: 'rgba(158,63,253,0.1)',
-                      color: '#9E3FFD',
-                      fontFamily: 'Inter, sans-serif',
+                      background: 'rgba(14,165,233,0.1)',
+                      color: '#0EA5E9',
+                      fontFamily: 'Outfit, sans-serif',
                     }}
                   >
                     {group.label}
                   </span>
-                  <div className="flex-1 h-px" style={{ background: 'rgba(158,63,253,0.12)' }} />
+                  <div className="flex-1 h-px" style={{ background: 'rgba(14,165,233,0.12)' }} />
                 </div>
               </FadeSection>
 
@@ -118,25 +118,25 @@ export default function Team() {
       </section>
 
       {/* ── JOIN BANNER ───────────────────────────────────────────────────────── */}
-      <section className="py-16" style={{ background: '#F5F3FF' }}>
+      <section className="py-16" style={{ background: '#F0F9FF' }}>
         <div className="max-w-4xl mx-auto px-4 text-center">
           <FadeSection>
             <h3
               className="text-3xl font-bold mb-3"
-              style={{ fontFamily: 'Poppins, sans-serif', color: '#16163F' }}
+              style={{ fontFamily: 'Fraunces, serif', color: '#16163F' }}
             >
               Want to join the White Cross team?
             </h3>
-            <p className="text-gray-500 mb-6 text-sm" style={{ fontFamily: 'Inter, sans-serif' }}>
+            <p className="text-gray-500 mb-6 text-sm" style={{ fontFamily: 'Outfit, sans-serif' }}>
               We're always looking for passionate people to help us educate, prevent, and empower.
             </p>
             <a
               href="/join"
               className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-bold text-white transition-all hover:scale-105"
               style={{
-                background: 'linear-gradient(135deg, #9E3FFD, #6A0DAD)',
-                fontFamily: 'Inter, sans-serif',
-                boxShadow: '0 8px 24px rgba(158,63,253,0.3)',
+                background: '#16163F',
+                fontFamily: 'Outfit, sans-serif',
+                boxShadow: '0 8px 24px rgba(14,165,233,0.3)',
               }}
             >
               Apply to Join →

@@ -36,14 +36,14 @@ function ImagePlaceholder({ label = 'Image Coming Soon' }) {
     <div
       className="w-full h-72 lg:h-full rounded-2xl flex flex-col items-center justify-center gap-3"
       style={{
-        background: 'linear-gradient(135deg, #DDBBFF 0%, #EDD9FF 50%, #F0E5FF 100%)',
+        background: 'linear-gradient(135deg, #BAE6FD 0%, #DBEAFE 50%, #E0F2FE 100%)',
         minHeight: '280px',
       }}
     >
-      <Heart size={32} style={{ color: 'rgba(158,63,253,0.4)' }} />
+      <Heart size={32} style={{ color: 'rgba(14,165,233,0.4)' }} />
       <span
         className="text-xs font-medium uppercase tracking-widest"
-        style={{ color: 'rgba(158,63,253,0.5)', fontFamily: 'Inter, sans-serif' }}
+        style={{ color: 'rgba(14,165,233,0.5)', fontFamily: 'Outfit, sans-serif' }}
       >
         {label}
       </span>
@@ -59,8 +59,8 @@ const resources = [
     icon: Phone,
     href: 'tel:988',
     btnLabel: 'Call 988',
-    color: '#9E3FFD',
-    bg: 'rgba(158,63,253,0.08)',
+    color: '#0EA5E9',
+    bg: 'rgba(14,165,233,0.08)',
   },
   {
     name: 'SAMHSA National Helpline',
@@ -69,8 +69,8 @@ const resources = [
     icon: Phone,
     href: 'tel:18006624357',
     btnLabel: 'Call Now',
-    color: '#6A0DAD',
-    bg: 'rgba(106,13,173,0.08)',
+    color: '#0369A1',
+    bg: 'rgba(3,105,161,0.08)',
   },
   {
     name: 'Crisis Text Line',
@@ -79,8 +79,8 @@ const resources = [
     icon: MessageSquare,
     href: 'sms:741741&body=HOME',
     btnLabel: 'Text Now',
-    color: '#7A1FD4',
-    bg: 'rgba(122,31,212,0.08)',
+    color: '#0284C7',
+    bg: 'rgba(2,132,199,0.08)',
   },
   {
     name: 'GriefShare',
@@ -89,8 +89,8 @@ const resources = [
     icon: Globe,
     href: 'https://www.griefshare.org',
     btnLabel: 'Visit Site',
-    color: '#9E3FFD',
-    bg: 'rgba(158,63,253,0.08)',
+    color: '#0EA5E9',
+    bg: 'rgba(14,165,233,0.08)',
   },
   {
     name: 'Shatterproof',
@@ -99,8 +99,8 @@ const resources = [
     icon: Heart,
     href: 'https://www.shatterproof.org',
     btnLabel: 'Visit Site',
-    color: '#6A0DAD',
-    bg: 'rgba(106,13,173,0.08)',
+    color: '#0369A1',
+    bg: 'rgba(3,105,161,0.08)',
   },
   {
     name: 'White Cross',
@@ -109,8 +109,8 @@ const resources = [
     icon: Users,
     href: '/join',
     btnLabel: 'Contact Us',
-    color: '#7A1FD4',
-    bg: 'rgba(122,31,212,0.08)',
+    color: '#0284C7',
+    bg: 'rgba(2,132,199,0.08)',
     internal: true,
   },
 ];
@@ -118,15 +118,15 @@ const resources = [
 export default function Postvention() {
   return (
     <PageWrapper>
-      {/* ── HERO — Lavender theme ─────────────────────────────────────────────── */}
+      {/* ── HERO — Sky tint theme ──────────────────────────────────────────────── */}
       <section
         className="py-24 lg:py-36 relative overflow-hidden"
-        style={{ background: 'linear-gradient(135deg, #EDD9FF 0%, #F0E5FF 50%, #DDBBFF 100%)' }}
+        style={{ background: 'linear-gradient(135deg, #DBEAFE 0%, #E0F2FE 50%, #BAE6FD 100%)' }}
       >
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            backgroundImage: 'radial-gradient(circle at 20% 80%, rgba(158,63,253,0.1) 0%, transparent 50%)',
+            backgroundImage: 'radial-gradient(circle at 20% 80%, rgba(14,165,233,0.1) 0%, transparent 50%)',
           }}
         />
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -135,7 +135,7 @@ export default function Postvention() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             className="inline-block text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-6"
-            style={{ background: 'rgba(158,63,253,0.12)', color: '#7A1FD4', fontFamily: 'Inter, sans-serif' }}
+            style={{ background: 'rgba(14,165,233,0.12)', color: '#0284C7', fontFamily: 'Outfit, sans-serif' }}
           >
             Support & Healing
           </motion.span>
@@ -144,7 +144,7 @@ export default function Postvention() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.7 }}
             className="text-5xl lg:text-6xl font-extrabold mb-5"
-            style={{ fontFamily: 'Poppins, sans-serif', color: '#16163F' }}
+            style={{ fontFamily: 'Fraunces, serif', color: '#16163F' }}
           >
             Postvention
           </motion.h1>
@@ -153,7 +153,7 @@ export default function Postvention() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35 }}
             className="text-lg mb-8 max-w-2xl mx-auto"
-            style={{ color: '#4A3060', fontFamily: 'Inter, sans-serif' }}
+            style={{ color: '#1E3A5F', fontFamily: 'Outfit, sans-serif' }}
           >
             Support and healing for those who have lost someone to drug misuse or overdose.
             You are not alone in your grief.
@@ -167,9 +167,9 @@ export default function Postvention() {
               href="tel:988"
               className="inline-flex items-center gap-3 px-9 py-4 rounded-full font-bold text-white text-lg transition-all hover:scale-105 active:scale-95 shadow-lg"
               style={{
-                background: 'linear-gradient(135deg, #9E3FFD, #6A0DAD)',
-                fontFamily: 'Poppins, sans-serif',
-                boxShadow: '0 8px 28px rgba(158,63,253,0.3)',
+                background: '#16163F',
+                fontFamily: 'Fraunces, serif',
+                boxShadow: '0 8px 28px rgba(14,165,233,0.3)',
               }}
             >
               <Phone size={20} />
@@ -186,19 +186,19 @@ export default function Postvention() {
             <FadeSection>
               <span
                 className="text-xs font-bold uppercase tracking-widest"
-                style={{ color: '#9E3FFD', fontFamily: 'Inter, sans-serif' }}
+                style={{ color: '#0EA5E9', fontFamily: 'Outfit, sans-serif' }}
               >
                 Definition
               </span>
               <h2
                 className="text-4xl font-bold mt-2 mb-6"
-                style={{ fontFamily: 'Poppins, sans-serif', color: '#16163F' }}
+                style={{ fontFamily: 'Fraunces, serif', color: '#16163F' }}
               >
                 What is Postvention?
               </h2>
               <p
                 className="text-gray-600 leading-relaxed text-base"
-                style={{ fontFamily: 'Inter, sans-serif' }}
+                style={{ fontFamily: 'Outfit, sans-serif' }}
               >
                 Postvention is the care and support provided to individuals and communities after a
                 suicide or drug-related death. It helps survivors cope with grief, find healing, and
@@ -206,7 +206,7 @@ export default function Postvention() {
               </p>
               <p
                 className="text-gray-500 leading-relaxed text-sm mt-4"
-                style={{ fontFamily: 'Inter, sans-serif' }}
+                style={{ fontFamily: 'Outfit, sans-serif' }}
               >
                 Postvention recognizes that loss ripples outward — affecting families, friends, schools,
                 and entire communities. Getting the right support can save lives and interrupt cycles
@@ -223,20 +223,20 @@ export default function Postvention() {
       {/* ── IF YOU'VE LOST SOMEONE ───────────────────────────────────────────── */}
       <section
         className="py-20 text-center"
-        style={{ background: '#F0E5FF' }}
+        style={{ background: '#E0F2FE' }}
       >
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeSection>
-            <Heart size={36} className="mx-auto mb-6 opacity-40" style={{ color: '#9E3FFD' }} />
+            <Heart size={36} className="mx-auto mb-6 opacity-40" style={{ color: '#0EA5E9' }} />
             <h2
               className="text-3xl lg:text-4xl font-bold mb-6"
-              style={{ fontFamily: 'Poppins, sans-serif', color: '#16163F' }}
+              style={{ fontFamily: 'Fraunces, serif', color: '#16163F' }}
             >
               If You've Lost Someone
             </h2>
             <p
               className="text-base lg:text-lg leading-relaxed"
-              style={{ color: '#4A3060', fontFamily: 'Inter, sans-serif' }}
+              style={{ color: '#1E3A5F', fontFamily: 'Outfit, sans-serif' }}
             >
               Losing someone to drug misuse or overdose shatters your world in ways words can't
               fully express. The grief, anger, and confusion can feel unbearable. At White Cross,
@@ -253,19 +253,19 @@ export default function Postvention() {
           <FadeSection className="text-center mb-12">
             <span
               className="text-xs font-bold uppercase tracking-widest"
-              style={{ color: '#9E3FFD', fontFamily: 'Inter, sans-serif' }}
+              style={{ color: '#0EA5E9', fontFamily: 'Outfit, sans-serif' }}
             >
               Resources
             </span>
             <h2
               className="text-4xl font-bold mt-2"
-              style={{ fontFamily: 'Poppins, sans-serif', color: '#16163F' }}
+              style={{ fontFamily: 'Fraunces, serif', color: '#16163F' }}
             >
               Where to Turn
             </h2>
             <p
               className="text-gray-500 text-sm mt-2 max-w-xl mx-auto"
-              style={{ fontFamily: 'Inter, sans-serif' }}
+              style={{ fontFamily: 'Outfit, sans-serif' }}
             >
               These organizations provide compassionate support for grief, crisis, and recovery.
               All are free or low-cost.
@@ -284,7 +284,7 @@ export default function Postvention() {
                 className="rounded-2xl p-6 flex flex-col"
                 style={{
                   background: 'white',
-                  border: '1px solid rgba(158,63,253,0.1)',
+                  border: '1px solid rgba(14,165,233,0.1)',
                   boxShadow: '0 4px 20px rgba(22,22,63,0.06)',
                 }}
               >
@@ -298,13 +298,13 @@ export default function Postvention() {
                   <div>
                     <h3
                       className="font-bold text-sm leading-tight"
-                      style={{ fontFamily: 'Poppins, sans-serif', color: '#16163F' }}
+                      style={{ fontFamily: 'Fraunces, serif', color: '#16163F' }}
                     >
                       {r.name}
                     </h3>
                     <p
                       className="text-xs font-semibold mt-0.5"
-                      style={{ color: r.color, fontFamily: 'Inter, sans-serif' }}
+                      style={{ color: r.color, fontFamily: 'Outfit, sans-serif' }}
                     >
                       {r.contact}
                     </p>
@@ -312,7 +312,7 @@ export default function Postvention() {
                 </div>
                 <p
                   className="text-xs text-gray-500 flex-1 mb-4"
-                  style={{ fontFamily: 'Inter, sans-serif' }}
+                  style={{ fontFamily: 'Outfit, sans-serif' }}
                 >
                   {r.detail}
                 </p>
@@ -320,7 +320,7 @@ export default function Postvention() {
                   <Link
                     to={r.href}
                     className="text-center py-2 px-4 rounded-xl text-sm font-semibold transition-all hover:opacity-80"
-                    style={{ background: r.bg, color: r.color, fontFamily: 'Inter, sans-serif' }}
+                    style={{ background: r.bg, color: r.color, fontFamily: 'Outfit, sans-serif' }}
                   >
                     {r.btnLabel}
                   </Link>
@@ -330,7 +330,7 @@ export default function Postvention() {
                     target={r.href.startsWith('http') ? '_blank' : undefined}
                     rel={r.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                     className="text-center py-2 px-4 rounded-xl text-sm font-semibold transition-all hover:opacity-80"
-                    style={{ background: r.bg, color: r.color, fontFamily: 'Inter, sans-serif' }}
+                    style={{ background: r.bg, color: r.color, fontFamily: 'Outfit, sans-serif' }}
                   >
                     {r.btnLabel}
                   </a>
@@ -347,13 +347,13 @@ export default function Postvention() {
           <FadeSection>
             <h2
               className="text-4xl font-extrabold text-white mb-4"
-              style={{ fontFamily: 'Poppins, sans-serif' }}
+              style={{ fontFamily: 'Fraunces, serif' }}
             >
               We're here for you.
             </h2>
             <p
               className="mb-8"
-              style={{ color: 'rgba(221,187,255,0.75)', fontFamily: 'Inter, sans-serif' }}
+              style={{ color: 'rgba(186,230,253,0.75)', fontFamily: 'Outfit, sans-serif' }}
             >
               Reach out to White Cross. Whether you need resources, want to talk, or are looking
               for ways to help others — our team is here.
@@ -362,9 +362,10 @@ export default function Postvention() {
               to="/join"
               className="inline-flex items-center gap-3 px-9 py-4 rounded-full font-bold text-white transition-all hover:scale-105"
               style={{
-                background: 'linear-gradient(135deg, #9E3FFD, #6A0DAD)',
-                fontFamily: 'Poppins, sans-serif',
-                boxShadow: '0 8px 24px rgba(158,63,253,0.3)',
+                background: '#16163F',
+                border: '2px solid rgba(14,165,233,0.4)',
+                fontFamily: 'Fraunces, serif',
+                boxShadow: '0 8px 24px rgba(14,165,233,0.3)',
               }}
             >
               Contact Us

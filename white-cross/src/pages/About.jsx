@@ -42,7 +42,7 @@ export default function About() {
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            backgroundImage: 'radial-gradient(circle at 70% 50%, rgba(158,63,253,0.12) 0%, transparent 60%)',
+            backgroundImage: 'radial-gradient(circle at 70% 50%, rgba(14,165,233,0.12) 0%, transparent 60%)',
           }}
         />
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -51,7 +51,7 @@ export default function About() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             className="inline-block text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-6"
-            style={{ background: 'rgba(158,63,253,0.2)', color: '#DDBBFF', fontFamily: 'Inter, sans-serif' }}
+            style={{ background: 'rgba(14,165,233,0.2)', color: '#BAE6FD', fontFamily: 'Outfit, sans-serif' }}
           >
             Our Story
           </motion.span>
@@ -60,7 +60,7 @@ export default function About() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.7 }}
             className="text-5xl lg:text-6xl font-extrabold mb-5"
-            style={{ fontFamily: 'Poppins, sans-serif' }}
+            style={{ fontFamily: 'Fraunces, serif' }}
           >
             About White Cross
           </motion.h1>
@@ -69,7 +69,7 @@ export default function About() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35 }}
             className="text-lg opacity-75 max-w-2xl mx-auto"
-            style={{ fontFamily: 'Inter, sans-serif' }}
+            style={{ fontFamily: 'Outfit, sans-serif' }}
           >
             Working toward a drug-free future, one community at a time.
           </motion.p>
@@ -83,17 +83,17 @@ export default function About() {
             <FadeSection>
               <span
                 className="text-xs font-bold uppercase tracking-widest"
-                style={{ color: '#9E3FFD', fontFamily: 'Inter, sans-serif' }}
+                style={{ color: '#0EA5E9', fontFamily: 'Outfit, sans-serif' }}
               >
                 Who We Are
               </span>
               <h2
                 className="text-4xl font-bold mt-2 mb-6"
-                style={{ fontFamily: 'Poppins, sans-serif', color: '#16163F' }}
+                style={{ fontFamily: 'Fraunces, serif', color: '#16163F' }}
               >
                 A Student-Led Movement
               </h2>
-              <div className="space-y-4 text-gray-600 leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
+              <div className="space-y-4 text-gray-600 leading-relaxed" style={{ fontFamily: 'Outfit, sans-serif' }}>
                 <p>
                   White Cross is a student-led organization dedicated to raising awareness about drug
                   abuse across New Jersey and beyond. What started as a local initiative has grown
@@ -117,32 +117,32 @@ export default function About() {
               <div
                 className="rounded-2xl p-8 lg:p-10 relative overflow-hidden"
                 style={{
-                  background: 'linear-gradient(135deg, #F5F3FF, #EDD9FF)',
-                  border: '1px solid rgba(158,63,253,0.15)',
+                  background: 'linear-gradient(135deg, #F0F9FF, #DBEAFE)',
+                  border: '1px solid rgba(14,165,233,0.15)',
                 }}
               >
                 {/* Decorative cross */}
                 <div className="absolute top-6 right-6 opacity-8">
                   <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                    <rect x="20" y="4" width="8" height="40" rx="4" fill="rgba(158,63,253,0.15)" />
-                    <rect x="4" y="20" width="40" height="8" rx="4" fill="rgba(158,63,253,0.15)" />
+                    <rect x="20" y="4" width="8" height="40" rx="4" fill="rgba(14,165,233,0.15)" />
+                    <rect x="4" y="20" width="40" height="8" rx="4" fill="rgba(14,165,233,0.15)" />
                   </svg>
                 </div>
                 <span
                   className="text-6xl font-serif leading-none block mb-4 opacity-30"
-                  style={{ color: '#9E3FFD', fontFamily: 'Georgia, serif' }}
+                  style={{ color: '#0EA5E9', fontFamily: 'Georgia, serif' }}
                 >
                   "
                 </span>
                 <blockquote
                   className="text-2xl lg:text-3xl font-bold leading-tight mb-6"
-                  style={{ fontFamily: 'Poppins, sans-serif', color: '#16163F' }}
+                  style={{ fontFamily: 'Fraunces, serif', color: '#16163F' }}
                 >
                   A future free from addiction is possible.
                 </blockquote>
                 <p
                   className="text-sm font-medium"
-                  style={{ color: '#9E3FFD', fontFamily: 'Inter, sans-serif' }}
+                  style={{ color: '#0EA5E9', fontFamily: 'Outfit, sans-serif' }}
                 >
                   — White Cross Mission
                 </p>
@@ -153,18 +153,18 @@ export default function About() {
       </section>
 
       {/* ── OUR APPROACH ─────────────────────────────────────────────────────── */}
-      <section className="py-20 lg:py-28" style={{ background: '#F5F3FF' }}>
+      <section className="py-20 lg:py-28" style={{ background: '#F0F9FF' }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeSection className="text-center mb-14">
             <span
               className="text-xs font-bold uppercase tracking-widest"
-              style={{ color: '#9E3FFD', fontFamily: 'Inter, sans-serif' }}
+              style={{ color: '#0EA5E9', fontFamily: 'Outfit, sans-serif' }}
             >
               How We Work
             </span>
             <h2
               className="text-4xl lg:text-5xl font-bold mt-2"
-              style={{ fontFamily: 'Poppins, sans-serif', color: '#16163F' }}
+              style={{ fontFamily: 'Fraunces, serif', color: '#16163F' }}
             >
               Our Approach
             </h2>
@@ -196,23 +196,23 @@ export default function About() {
                   className="p-7 rounded-2xl h-full"
                   style={{
                     background: 'white',
-                    border: '1px solid rgba(158,63,253,0.1)',
+                    border: '1px solid rgba(14,165,233,0.1)',
                     boxShadow: '0 4px 24px rgba(22,22,63,0.06)',
                   }}
                 >
                   <div
                     className="w-11 h-11 rounded-xl flex items-center justify-center mb-5"
-                    style={{ background: 'rgba(158,63,253,0.1)' }}
+                    style={{ background: 'rgba(14,165,233,0.1)' }}
                   >
-                    <Icon size={20} style={{ color: '#9E3FFD' }} />
+                    <Icon size={20} style={{ color: '#0EA5E9' }} />
                   </div>
                   <h3
                     className="text-lg font-bold mb-3"
-                    style={{ fontFamily: 'Poppins, sans-serif', color: '#16163F' }}
+                    style={{ fontFamily: 'Fraunces, serif', color: '#16163F' }}
                   >
                     {title}
                   </h3>
-                  <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
+                  <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'Outfit, sans-serif' }}>
                     {desc}
                   </p>
                 </div>
@@ -228,7 +228,7 @@ export default function About() {
           <FadeSection className="text-center mb-12">
             <h2
               className="text-3xl lg:text-4xl font-bold text-white"
-              style={{ fontFamily: 'Poppins, sans-serif' }}
+              style={{ fontFamily: 'Fraunces, serif' }}
             >
               Why This Work Matters
             </h2>
@@ -261,18 +261,18 @@ export default function About() {
             <div
               className="rounded-3xl p-10 lg:p-14 flex flex-col lg:flex-row items-center gap-8 justify-between"
               style={{
-                background: 'linear-gradient(135deg, #F5F3FF 0%, #EDD9FF 100%)',
-                border: '1px solid rgba(158,63,253,0.15)',
+                background: 'linear-gradient(135deg, #F0F9FF 0%, #DBEAFE 100%)',
+                border: '1px solid rgba(14,165,233,0.15)',
               }}
             >
               <div>
                 <h3
                   className="text-3xl font-bold mb-3"
-                  style={{ fontFamily: 'Poppins, sans-serif', color: '#16163F' }}
+                  style={{ fontFamily: 'Fraunces, serif', color: '#16163F' }}
                 >
                   Meet the People Behind White Cross
                 </h3>
-                <p className="text-gray-500 text-sm leading-relaxed max-w-lg" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <p className="text-gray-500 text-sm leading-relaxed max-w-lg" style={{ fontFamily: 'Outfit, sans-serif' }}>
                   Our team is made up of dedicated students, designers, writers, and advocates — all
                   united by a shared mission to create lasting change in their communities.
                 </p>
@@ -281,9 +281,9 @@ export default function About() {
                 to="/team"
                 className="flex-shrink-0 flex items-center gap-3 px-8 py-4 rounded-full font-bold text-white transition-all hover:scale-105 active:scale-95"
                 style={{
-                  background: 'linear-gradient(135deg, #9E3FFD, #6A0DAD)',
-                  fontFamily: 'Poppins, sans-serif',
-                  boxShadow: '0 8px 24px rgba(158,63,253,0.3)',
+                  background: '#16163F',
+                  fontFamily: 'Fraunces, serif',
+                  boxShadow: '0 8px 24px rgba(14,165,233,0.3)',
                 }}
               >
                 Meet the Team

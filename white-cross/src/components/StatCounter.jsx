@@ -48,8 +48,8 @@ export default function StatCounter({ value, prefix = '', suffix = '', display, 
   return (
     <div ref={ref} className="flex flex-col items-center text-center px-4">
       <span
-        className="text-4xl lg:text-5xl font-bold font-poppins mb-2 tabular-nums"
-        style={{ fontFamily: 'Poppins, sans-serif', color: '#DDBBFF' }}
+        className="text-4xl lg:text-5xl font-bold mb-2 tabular-nums"
+        style={{ fontFamily: 'Fraunces, serif', color: '#BAE6FD' }}
       >
         {prefix}
         {display && !isInView ? '0' : formatted}
@@ -57,14 +57,14 @@ export default function StatCounter({ value, prefix = '', suffix = '', display, 
       </span>
       <span
         className="text-sm font-semibold uppercase tracking-wider mb-1"
-        style={{ fontFamily: 'Inter, sans-serif', color: 'rgba(255,255,255,0.9)' }}
+        style={{ fontFamily: 'Outfit, sans-serif', color: 'rgba(255,255,255,0.9)' }}
       >
         {label}
       </span>
       {sublabel && (
         <span
           className="text-xs mt-0.5"
-          style={{ fontFamily: 'Inter, sans-serif', color: 'rgba(255,255,255,0.45)' }}
+          style={{ fontFamily: 'Outfit, sans-serif', color: 'rgba(255,255,255,0.45)' }}
         >
           {sublabel}
         </span>

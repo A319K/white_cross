@@ -54,7 +54,7 @@ export default function RxDispose() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.7 }}
             className="text-5xl lg:text-7xl font-extrabold mb-4"
-            style={{ fontFamily: 'Poppins, sans-serif' }}
+            style={{ fontFamily: 'Fraunces, serif' }}
           >
             RxDispose
           </motion.h1>
@@ -64,7 +64,7 @@ export default function RxDispose() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35 }}
             className="text-xl mb-8 max-w-xl mx-auto"
-            style={{ color: 'rgba(200, 230, 201, 0.9)', fontFamily: 'Inter, sans-serif' }}
+            style={{ color: 'rgba(200, 230, 201, 0.9)', fontFamily: 'Outfit, sans-serif' }}
           >
             Safe medication disposal, made simple. Protect your family and community.
           </motion.p>
@@ -81,7 +81,7 @@ export default function RxDispose() {
               style={{
                 background: 'white',
                 color: '#1B5E20',
-                fontFamily: 'Inter, sans-serif',
+                fontFamily: 'Outfit, sans-serif',
                 boxShadow: '0 8px 24px rgba(0,0,0,0.2)',
               }}
             >
@@ -94,7 +94,7 @@ export default function RxDispose() {
               style={{
                 background: 'rgba(255,255,255,0.1)',
                 color: 'white',
-                fontFamily: 'Inter, sans-serif',
+                fontFamily: 'Outfit, sans-serif',
               }}
             >
               Find Disposal Site
@@ -120,7 +120,7 @@ export default function RxDispose() {
             }}
           >
             <span className="text-2xl flex-shrink-0">ℹ️</span>
-            <div style={{ fontFamily: 'Inter, sans-serif' }}>
+            <div style={{ fontFamily: 'Outfit, sans-serif' }}>
               <p className="font-semibold text-sm mb-1" style={{ color: '#1B5E20' }}>
                 How to use RxDispose
               </p>
@@ -144,13 +144,13 @@ export default function RxDispose() {
         <div className="max-w-2xl mx-auto px-4">
           <p
             className="text-4xl font-bold text-white mb-3"
-            style={{ fontFamily: 'Poppins, sans-serif' }}
+            style={{ fontFamily: 'Fraunces, serif' }}
           >
             Protect your community.
           </p>
           <p
             className="text-green-200 mb-6 text-sm"
-            style={{ fontFamily: 'Inter, sans-serif' }}
+            style={{ fontFamily: 'Outfit, sans-serif' }}
           >
             Proper medication disposal prevents drug misuse, protects the environment,
             and keeps your household safe.
@@ -160,7 +160,7 @@ export default function RxDispose() {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block px-8 py-3.5 rounded-full font-semibold text-sm bg-white transition-all hover:scale-105"
-            style={{ color: '#1B5E20', fontFamily: 'Inter, sans-serif' }}
+            style={{ color: '#1B5E20', fontFamily: 'Outfit, sans-serif' }}
           >
             Find a DEA Take Back Site →
           </a>

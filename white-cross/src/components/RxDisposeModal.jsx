@@ -56,7 +56,7 @@ export default function RxDisposeModal({ isOpen, onClose, title, icon: Icon, chi
                 )}
                 <h2
                   className="text-lg font-bold flex-1"
-                  style={{ fontFamily: 'Poppins, sans-serif', color: '#16163F' }}
+                  style={{ fontFamily: 'Fraunces, serif', color: '#16163F' }}
                 >
                   {title}
                 </h2>

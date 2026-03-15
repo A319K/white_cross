@@ -8,13 +8,13 @@ function ImagePlaceholder() {
     <div
       className="w-full h-52 flex flex-col items-center justify-center gap-2 rounded-t-2xl"
       style={{
-        background: 'linear-gradient(135deg, #1E1E5A 0%, #9E3FFD 60%, #DDBBFF 100%)',
+        background: 'linear-gradient(135deg, #1E1E5A 0%, #0EA5E9 60%, #BAE6FD 100%)',
       }}
     >
       <Camera size={28} className="text-white/60" />
       <span
         className="text-xs font-medium text-white/50 uppercase tracking-widest"
-        style={{ fontFamily: 'Inter, sans-serif' }}
+        style={{ fontFamily: 'Outfit, sans-serif' }}
       >
         Photo Coming Soon
       </span>
@@ -67,9 +67,9 @@ export default function EventCard({ event, delay = 0 }) {
         <span
           className="inline-flex items-center self-start text-xs font-semibold px-2.5 py-1 rounded-full mb-3"
           style={{
-            background: isPast ? 'rgba(107, 114, 128, 0.1)' : 'rgba(158, 63, 253, 0.1)',
-            color: isPast ? '#6b7280' : '#9E3FFD',
-            fontFamily: 'Inter, sans-serif',
+            background: isPast ? 'rgba(107, 114, 128, 0.1)' : 'rgba(14, 165, 233, 0.1)',
+            color: isPast ? '#6b7280' : '#0EA5E9',
+            fontFamily: 'Outfit, sans-serif',
           }}
         >
           {isPast ? 'Past Event' : 'Upcoming'}
@@ -77,32 +77,32 @@ export default function EventCard({ event, delay = 0 }) {
 
         <h3
           className="font-semibold text-base mb-2 leading-snug"
-          style={{ fontFamily: 'Poppins, sans-serif', color: '#16163F' }}
+          style={{ fontFamily: 'Fraunces, serif', color: '#16163F' }}
         >
           {title}
         </h3>
         <p
           className="text-sm text-gray-500 leading-relaxed flex-1 mb-4"
-          style={{ fontFamily: 'Inter, sans-serif' }}
+          style={{ fontFamily: 'Outfit, sans-serif' }}
         >
           {description.length > 120 ? description.slice(0, 117) + '…' : description}
         </p>
 
         {/* Date & location */}
         <div className="space-y-1.5 mb-4">
-          <div className="flex items-center gap-2 text-xs text-gray-400" style={{ fontFamily: 'Inter, sans-serif' }}>
-            <Calendar size={12} style={{ color: '#9E3FFD' }} />
+          <div className="flex items-center gap-2 text-xs text-gray-400" style={{ fontFamily: 'Outfit, sans-serif' }}>
+            <Calendar size={12} style={{ color: '#0EA5E9' }} />
             {formattedDate}
           </div>
-          <div className="flex items-center gap-2 text-xs text-gray-400" style={{ fontFamily: 'Inter, sans-serif' }}>
-            <MapPin size={12} style={{ color: '#9E3FFD' }} />
+          <div className="flex items-center gap-2 text-xs text-gray-400" style={{ fontFamily: 'Outfit, sans-serif' }}>
+            <MapPin size={12} style={{ color: '#0EA5E9' }} />
             {location}
           </div>
         </div>
 
         <button
           className="flex items-center gap-1.5 text-sm font-semibold transition-colors group-hover:gap-2.5"
-          style={{ color: '#9E3FFD', fontFamily: 'Inter, sans-serif', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+          style={{ color: '#0EA5E9', fontFamily: 'Outfit, sans-serif', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
         >
           Learn More
           <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />

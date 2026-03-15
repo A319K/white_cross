@@ -61,8 +61,8 @@ export default function EventCalendar() {
       if (evs.length > 0) {
         return (
           <span
-            className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-purple-500 block"
-            style={{ background: '#9E3FFD' }}
+            className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full block"
+            style={{ background: '#0EA5E9' }}
           />
         );
       }
@@ -83,13 +83,13 @@ export default function EventCalendar() {
         <div
           className="mt-4 p-4 rounded-xl border"
           style={{
-            background: '#F5F3FF',
-            borderColor: 'rgba(158, 63, 253, 0.25)',
+            background: '#F0F9FF',
+            borderColor: 'rgba(14, 165, 233, 0.25)',
           }}
         >
           <p
             className="text-xs font-semibold uppercase tracking-wider mb-2"
-            style={{ color: '#9E3FFD', fontFamily: 'Inter, sans-serif' }}
+            style={{ color: '#0EA5E9', fontFamily: 'Outfit, sans-serif' }}
           >
             Events on this day
           </p>
@@ -97,13 +97,13 @@ export default function EventCalendar() {
             <div key={e.id} className="mb-1">
               <p
                 className="text-sm font-medium"
-                style={{ color: '#16163F', fontFamily: 'Inter, sans-serif' }}
+                style={{ color: '#16163F', fontFamily: 'Outfit, sans-serif' }}
               >
                 {e.title}
               </p>
               <p
                 className="text-xs text-gray-500"
-                style={{ fontFamily: 'Inter, sans-serif' }}
+                style={{ fontFamily: 'Outfit, sans-serif' }}
               >
                 {e.location}
               </p>
@@ -115,7 +115,7 @@ export default function EventCalendar() {
       {upcomingEvents.length === 0 && (
         <p
           className="text-center text-sm text-gray-400 mt-4"
-          style={{ fontFamily: 'Inter, sans-serif' }}
+          style={{ fontFamily: 'Outfit, sans-serif' }}
         >
           No upcoming events scheduled yet. Check back soon!
         </p>

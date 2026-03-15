@@ -3,11 +3,11 @@ import { getInitials } from '../data/team';
 
 // Avatar gradient pairs — cycles through for visual variety
 const gradients = [
-  'linear-gradient(135deg, #9E3FFD, #16163F)',
-  'linear-gradient(135deg, #6A0DAD, #9E3FFD)',
-  'linear-gradient(135deg, #16163F, #7A1FD4)',
-  'linear-gradient(135deg, #B566FE, #6A0DAD)',
-  'linear-gradient(135deg, #4A0082, #9E3FFD)',
+  'linear-gradient(135deg, #0EA5E9, #16163F)',
+  'linear-gradient(135deg, #0369A1, #0EA5E9)',
+  'linear-gradient(135deg, #16163F, #0284C7)',
+  'linear-gradient(135deg, #38BDF8, #0369A1)',
+  'linear-gradient(135deg, #075985, #0EA5E9)',
 ];
 
 export default function TeamCard({ member, index = 0, delay = 0 }) {
@@ -30,7 +30,7 @@ export default function TeamCard({ member, index = 0, delay = 0 }) {
         transition: 'box-shadow 0.2s',
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.boxShadow = '0 8px 32px rgba(158, 63, 253, 0.15)';
+        e.currentTarget.style.boxShadow = '0 8px 32px rgba(14, 165, 233, 0.15)';
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.boxShadow = '0 2px 16px rgba(22, 22, 63, 0.07)';
@@ -39,7 +39,7 @@ export default function TeamCard({ member, index = 0, delay = 0 }) {
       {/* Circular avatar */}
       <div
         className="w-16 h-16 rounded-full flex items-center justify-center text-white text-lg font-bold mb-4 flex-shrink-0"
-        style={{ background: gradient, fontFamily: 'Poppins, sans-serif' }}
+        style={{ background: gradient, fontFamily: 'Fraunces, serif' }}
       >
         {initials}
       </div>
@@ -47,7 +47,7 @@ export default function TeamCard({ member, index = 0, delay = 0 }) {
       {/* Name */}
       <h4
         className="font-semibold text-sm mb-1.5 leading-tight"
-        style={{ fontFamily: 'Poppins, sans-serif', color: '#16163F' }}
+        style={{ fontFamily: 'Fraunces, serif', color: '#16163F' }}
       >
         {name}
       </h4>
@@ -56,9 +56,9 @@ export default function TeamCard({ member, index = 0, delay = 0 }) {
       <span
         className="inline-block text-xs font-semibold px-2.5 py-1 rounded-full mb-1.5"
         style={{
-          background: 'rgba(158, 63, 253, 0.1)',
-          color: '#9E3FFD',
-          fontFamily: 'Inter, sans-serif',
+          background: 'rgba(14, 165, 233, 0.1)',
+          color: '#0EA5E9',
+          fontFamily: 'Outfit, sans-serif',
         }}
       >
         {role}
@@ -68,7 +68,7 @@ export default function TeamCard({ member, index = 0, delay = 0 }) {
       {secondary && (
         <span
           className="text-xs"
-          style={{ color: '#9ca3af', fontFamily: 'Inter, sans-serif' }}
+          style={{ color: '#9ca3af', fontFamily: 'Outfit, sans-serif' }}
         >
           {secondary}
         </span>

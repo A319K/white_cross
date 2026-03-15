@@ -16,29 +16,32 @@ export default function CrisisBanner() {
           style={{ zIndex: 9999 }}
         >
           <div
-            className="flex items-center justify-center gap-3 px-4 py-2.5 text-white text-sm font-medium relative"
-            style={{
-              background: 'linear-gradient(90deg, #9E3FFD 0%, #6A0DAD 50%, #9E3FFD 100%)',
-              backgroundSize: '200% 100%',
-            }}
+            className="flex items-center justify-center gap-3 px-4 py-2 text-white text-xs relative"
+            style={{ background: '#0A0A2E', borderBottom: '1px solid rgba(186, 230, 253, 0.12)' }}
           >
-            <Phone size={14} className="flex-shrink-0" />
-            <span>
+            <Phone
+              size={12}
+              className="flex-shrink-0"
+              style={{ color: '#38BDF8' }}
+            />
+            <span style={{ fontFamily: 'Outfit, sans-serif', letterSpacing: '0.01em', color: 'rgba(255,255,255,0.75)' }}>
               Need immediate help?{' '}
               <a
                 href="tel:988"
-                className="font-bold underline underline-offset-2 hover:no-underline transition-all"
+                className="font-bold transition-opacity hover:opacity-80"
+                style={{ color: '#D97706', textDecoration: 'none' }}
               >
                 Call or text 988
-              </a>{' '}
-              — Free, confidential crisis support, 24/7
+              </a>
+              {' '}— Free, confidential crisis support, 24/7
             </span>
             <button
               onClick={() => setDismissed(true)}
-              className="absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-white/20 transition-colors"
+              className="absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded transition-colors"
+              style={{ color: 'rgba(255,255,255,0.4)' }}
               aria-label="Dismiss banner"
             >
-              <X size={14} />
+              <X size={12} />
             </button>
           </div>
         </motion.div>

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Phone } from 'lucide-react';
+import WhiteCrossLogo from './WhiteCrossLogo';
 
 const navLinks = [
   { label: 'Home', to: '/' },
@@ -32,39 +33,44 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`sticky top-0 z-50 bg-white transition-shadow duration-300 ${
-        scrolled ? 'shadow-md' : 'shadow-none border-b border-gray-100'
-      }`}
+      className="sticky top-0 z-50 transition-all duration-300"
+      style={{
+        background: '#FAFAF9',
+        borderBottom: scrolled ? 'none' : '1px solid rgba(22, 22, 63, 0.07)',
+        boxShadow: scrolled ? '0 1px 20px rgba(22, 22, 63, 0.08)' : 'none',
+      }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Wordmark */}
-          <Link
-            to="/"
-            className="font-poppins font-bold text-xl tracking-tight text-navy"
-            style={{ fontFamily: 'Poppins, sans-serif', color: '#16163F' }}
-          >
-            White<span style={{ color: '#9E3FFD' }}>Cross</span>
+
+          {/* Logo */}
+          <Link to="/" style={{ textDecoration: 'none', lineHeight: 0 }}>
+            <WhiteCrossLogo size="nav" />
           </Link>
 
           {/* Desktop nav links */}
-          <div className="hidden lg:flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-0.5">
             {navLinks.map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
-                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-150 ${
-                  isActive(link.to)
-                    ? 'text-purple-600 bg-purple-50'
-                    : 'text-gray-600 hover:text-navy hover:bg-gray-50'
-                }`}
+                className="relative px-4 py-2 text-sm transition-colors duration-150"
                 style={{
-                  color: isActive(link.to) ? '#9E3FFD' : undefined,
-                  backgroundColor: isActive(link.to) ? '#F5F3FF' : undefined,
-                  fontFamily: 'Inter, sans-serif',
+                  fontFamily: 'Outfit, sans-serif',
+                  fontWeight: isActive(link.to) ? 600 : 400,
+                  color: isActive(link.to) ? '#16163F' : '#78716C',
+                  textDecoration: 'none',
                 }}
               >
                 {link.label}
+                {isActive(link.to) && (
+                  <motion.span
+                    layoutId="nav-underline"
+                    className="absolute bottom-0 left-4 right-4 h-0.5 rounded-full"
+                    style={{ background: '#0EA5E9' }}
+                    transition={{ type: 'spring', bounce: 0.2, duration: 0.4 }}
+                  />
+                )}
               </Link>
             ))}
           </div>
@@ -73,21 +79,22 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center gap-3">
             <a
               href="tel:988"
-              className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-200 hover:scale-105 active:scale-95"
+              className="flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-95"
               style={{
-                background: 'linear-gradient(135deg, #9E3FFD, #6A0DAD)',
-                fontFamily: 'Inter, sans-serif',
-                boxShadow: '0 4px 14px rgba(158, 63, 253, 0.35)',
+                background: '#16163F',
+                fontFamily: 'Outfit, sans-serif',
+                boxShadow: '0 2px 12px rgba(22, 22, 63, 0.25)',
               }}
             >
-              <Phone size={14} />
+              <Phone size={13} />
               Get Help Now
             </a>
           </div>
 
           {/* Mobile hamburger */}
           <button
-            className="lg:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
+            className="lg:hidden p-2 rounded-lg transition-colors"
+            style={{ color: '#16163F' }}
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >
@@ -104,21 +111,22 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: 'easeInOut' }}
-            className="overflow-hidden lg:hidden border-t border-gray-100 bg-white"
+            className="overflow-hidden lg:hidden"
+            style={{ borderTop: '1px solid rgba(22, 22, 63, 0.07)', background: '#FAFAF9' }}
           >
-            <div className="px-4 py-4 flex flex-col gap-1">
+            <div className="px-4 py-5 flex flex-col gap-0.5">
               {navLinks.map((link) => (
                 <Link
                   key={link.to}
                   to={link.to}
-                  className={`px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
-                    isActive(link.to)
-                      ? 'bg-purple-50 text-purple-600 font-semibold'
-                      : 'text-gray-700 hover:bg-gray-50'
-                  }`}
+                  className="px-4 py-3 rounded-xl text-sm transition-colors"
                   style={{
-                    color: isActive(link.to) ? '#9E3FFD' : undefined,
-                    fontFamily: 'Inter, sans-serif',
+                    fontFamily: 'Outfit, sans-serif',
+                    fontWeight: isActive(link.to) ? 600 : 400,
+                    color: isActive(link.to) ? '#16163F' : '#78716C',
+                    background: isActive(link.to) ? 'rgba(14, 165, 233, 0.07)' : 'transparent',
+                    borderLeft: isActive(link.to) ? '2px solid #0EA5E9' : '2px solid transparent',
+                    textDecoration: 'none',
                   }}
                 >
                   {link.label}
@@ -126,10 +134,10 @@ export default function Navbar() {
               ))}
               <a
                 href="tel:988"
-                className="mt-2 flex items-center justify-center gap-2 px-5 py-3 rounded-full text-sm font-semibold text-white"
+                className="mt-3 flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold text-white"
                 style={{
-                  background: 'linear-gradient(135deg, #9E3FFD, #6A0DAD)',
-                  fontFamily: 'Inter, sans-serif',
+                  background: '#16163F',
+                  fontFamily: 'Outfit, sans-serif',
                 }}
               >
                 <Phone size={14} />
